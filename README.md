@@ -37,6 +37,7 @@ You need to add the following permissions to the app registration to be able to 
 
 #### One Drive
 No need to set up anything in OneDrive. Only the `folder id` and `driver cid` must be obtained from the **url address**. It is necessary to go to the folder from which the files will be **backed up**.
+![1.OneDrive_Url](/Doc/Images/OneDrive/1.OneDrive_Url.png)
 
 #### Program
 Copy `appsettings.json` to your project root and fill in required values or set up `user secrets`.
