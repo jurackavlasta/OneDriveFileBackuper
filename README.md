@@ -87,6 +87,10 @@ dotnet run --project ./Src
 
 ## Version History
 
+* 0.2
+  * File downloads have been accelerated thanks to asynchronous processing. 
+  * Downloading large numbers of files has been fixed by limiting parallelism.
+  * The timeout for downloading large files has been extended to 10 minutes.  
 * 0.1
   * Initial release
 
