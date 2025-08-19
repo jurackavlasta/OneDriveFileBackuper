@@ -1,16 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OneDriveFileBackuper.Auth;
-using OneDriveFileBackuper.GraphClient;
+using OneDriveFileBackuper.GraphClients;
 using OneDriveFileBackuper.Handlers;
 using OneDriveFileBackuper.OneDrive;
 using OneDriveFileBackuper.Storages;
-using OneDrivePhotoDownloader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OneDriveFileBackuper.Configurations
 {
@@ -32,6 +26,8 @@ namespace OneDriveFileBackuper.Configurations
             services.AddScoped<IOneDriveClient, OneDriveService>();
             services.AddScoped<IFileStorage, LocalFileStorage>();
             services.AddScoped<IFileSyncHandler, FileSyncHandler>();
+            services.AddHttpClient();
+
             // Application register
             services.AddTransient<App>();
         }

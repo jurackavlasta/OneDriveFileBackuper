@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OneDriveFileBackuper.Handlers
+﻿namespace OneDriveFileBackuper.Handlers
 {
     /// <summary>
     /// Handler for file sync from onedrive and save

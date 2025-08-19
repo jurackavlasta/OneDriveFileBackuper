@@ -1,6 +1,6 @@
 ﻿using Microsoft.Graph;
 
-namespace OneDriveFileBackuper.GraphClient
+namespace OneDriveFileBackuper.GraphClients
 {
     /// <summary>
     /// Default graph service client use for graph calls

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Client.Extensions.Msal;
-using OneDrivePhotoDownloader.Options;
+using OneDriveFileBackuper.Options;
 
 namespace OneDriveFileBackuper.Auth
 {
@@ -15,7 +15,7 @@ namespace OneDriveFileBackuper.Auth
         private readonly EntraIdOption _options;
         private IPublicClientApplication? _pca;
         private string _cacheName = "msal_cache.bin";
-        private string _cachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "OneDrivePhotoDownloader");
+        private string _cachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "OneDriveFileBackuper");
         private string[] _scopes = new[] { "Files.ReadWrite", "Files.Read", "offline_access" };
         private StorageCreationProperties _storageProperties;
         private bool _initialized = false;
@@ -39,7 +39,8 @@ namespace OneDriveFileBackuper.Auth
         /// <returns>Return JWT token</returns>
         public async Task<string> GenerateJwtTokenAsync()
         {
-            if (AccessToken == null) {
+            if (AccessToken == null)
+            {
                 AccessToken = (await GenerateTokenAsync()).AccessToken;
             }
 

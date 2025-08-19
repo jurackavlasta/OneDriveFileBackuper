@@ -1,4 +1,4 @@
-﻿namespace OneDrivePhotoDownloader.Options
+﻿namespace OneDriveFileBackuper.Options
 {
     /// <summary>
     /// Option for entra id

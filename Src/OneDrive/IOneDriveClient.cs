@@ -11,7 +11,7 @@ namespace OneDriveFileBackuper.OneDrive
         /// Load files from one drive with default graph service client 
         /// </summary>
         /// <returns>Returns files from one drive</returns>
-        public Task<IEnumerable<DriveItem>> LoadFilesAsync();
+        public Task<IEnumerable<Task>> ProcessFilesAsync(Func<DriveItem, Task> onFileDownload);
 
         /// <summary>
         /// Download file from one drive and returns task of bytes array.

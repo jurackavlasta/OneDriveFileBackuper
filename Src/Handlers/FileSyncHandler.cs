@@ -11,28 +11,48 @@ namespace OneDriveFileBackuper.Handlers
     /// </summary>
     public class FileSyncHandler(IOptions<BackupSettingsOption> _backupSettingsOption, IOneDriveClient _oneDriveService, IFileStorage _fileStorage, ILogger<FileSyncHandler> _logger) : IFileSyncHandler
     {
+        private const int MaxParallel = 4;
+
         /// <summary>
         /// Sync file from onedrive and backup
         /// </summary>
         /// <returns>Returns task</returns>
         public async Task SyncAsync()
         {
-            var files = await _oneDriveService.LoadFilesAsync();
+            int size = 1;
 
-            var tasks = files.Select(async file =>
+            var throttler = new SemaphoreSlim(MaxParallel);
+
+            var files = await _oneDriveService.ProcessFilesAsync(async file =>
             {
-                var result = await _oneDriveService.DownloadFileAsync(file);
-                await _fileStorage.SaveFileAsync(file.Name ?? Guid.NewGuid().ToString(), result);
-
-                if (_backupSettingsOption.Value.DeleteAfterBackup)
+                await throttler.WaitAsync();
+                try
                 {
-                    await _oneDriveService.DeleteFileAsync(file);
-                }
+                    var result = await _oneDriveService.DownloadFileAsync(file);
 
-                _logger.LogInformation($"The {file.Name} file has been backed up and deleted.");
+                    _logger.LogInformation($"The {file.Name} file downloaded.");
+
+                    await _fileStorage.SaveFileAsync(file.Name ?? Guid.NewGuid().ToString(), result);
+
+                    _logger.LogInformation($"The {file.Name} file saved.");
+
+                    if (_backupSettingsOption.Value.DeleteAfterBackup)
+                    {
+                        await _oneDriveService.DeleteFileAsync(file);
+                        _logger.LogInformation($"The {file.Name} file deleted.");
+                    }
+
+                    _logger.LogInformation($"The {file.Name} file number {size} done.");
+
+                    size++;
+                }
+                finally
+                {
+                    throttler.Release();
+                }
             });
 
-            await Task.WhenAll(tasks);
+            await Task.WhenAll(files);
 
             _logger.LogInformation("All files were successfully backed up and deleted.");
         }

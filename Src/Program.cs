@@ -1,25 +1,20 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using OneDriveFileBackuper.Auth;
+using OneDriveFileBackuper;
 using OneDriveFileBackuper.Configurations;
-using OneDriveFileBackuper.GraphClient;
-using OneDriveFileBackuper.Handlers;
-using OneDriveFileBackuper.OneDrive;
-using OneDriveFileBackuper.Options;
-using OneDriveFileBackuper.Options.Validators;
-using OneDriveFileBackuper.Storages;
-using OneDrivePhotoDownloader;
-using OneDrivePhotoDownloader.Options;
 
 var builder = new ConfigurationBuilder()
-                 .AddJsonFile($"appsettings.json", true, true)
+                 .SetBasePath(AppContext.BaseDirectory)
                  .AddUserSecrets<Program>()
+                 .AddJsonFile($"appsettings.json", false, true)
                  .Build();
 
 // Registration services
 var services = new ServiceCollection();
+
+// Configure logging
+services.ConfigureLogging(builder);
 
 // Mapping of options
 services.ConfigureOptions(builder);

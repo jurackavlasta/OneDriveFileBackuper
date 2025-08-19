@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Options;
-using OneDrivePhotoDownloader.Options;
-
 namespace OneDriveFileBackuper.Options.Validators
 {
     /// <summary>

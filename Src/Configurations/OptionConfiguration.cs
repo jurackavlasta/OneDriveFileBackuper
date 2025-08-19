@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using OneDriveFileBackuper.Options;
 using OneDriveFileBackuper.Options.Validators;
-using OneDrivePhotoDownloader.Options;
 
 namespace OneDriveFileBackuper.Configurations
 {

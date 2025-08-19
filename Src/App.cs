@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using OneDriveFileBackuper.Handlers;
 
-namespace OneDrivePhotoDownloader
+namespace OneDriveFileBackuper
 {
     /// <summary>
     /// Main class which is execute
